@@ -1,0 +1,10 @@
+{
+  "name": "@divvy/utilities",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Adam Sivins <adam.sivins@gmail.com>",
+  "scripts": {
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

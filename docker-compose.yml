@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: ${PG_DB_USER}
+      POSTGRES_PASSWORD: ${PG_DB_PASS}
+      POSTGRES_DB: ${PG_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./apps/middleware
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      PG_DB_USER: ${PG_DB_USER}
+      PG_DB_PASS: ${PG_DB_PASS}
+      PG_DB: ${PG_DB}
+      PG_DB_HOST: db
+      PG_DB_PORT: 5432
+    volumes:
+      - ./apps/middleware:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./apps/web:/app
+      - /node_modules 
+    environment:
+      - CHOKIDAR_USEPOLLING=true 
+    command: npm run dev -- --host
+
+  storybook:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    ports:
+      - "6006:6006"
+    depends_on:
+      - web
+    volumes:
+      - ./apps/web:/app
+      - /node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm run storybook
+
+volumes:
+  postgres_data:

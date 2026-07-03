@@ -1,0 +1,19 @@
+{
+  "name": "@cai/setup-env",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "node ./"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "globalDependencies": {
+    "@typescript-eslint/parser": "~5.20.0",
+    "create-react-app": "~latest",
+    "component_scaffold": "~0.6.0",
+    "@microsoft/rush": "~5.66.2",
+    "yarn": "~1.22.18",
+    "typescript": "~4.6.3",
+    "eslint": "~8.13.0",
+    "jshint": "~2.13.4"
+  }
+}
