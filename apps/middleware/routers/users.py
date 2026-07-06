@@ -6,7 +6,7 @@ import models, schemas
 
 router = APIRouter()
 
-@router.post("/", response_model=schemas.StandardResponse[schemas.UserResponse])
+@router.post("/", response_model=schemas.StandardResponse[schemas.UserResponse], status_code=201)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     existing_user = db.query(models.User).filter(models.User.email_address == user.email_address).first()
     if existing_user:
@@ -34,7 +34,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     
     return schemas.success_response(data=db_user, code=201)
 
-@router.get("/{user_id}", response_model=schemas.StandardResponse[schemas.UserResponse])
+@router.get("/{user_id}", response_model=schemas.StandardResponse[schemas.UserResponse], status_code=201)
 def get_user(user_id: int, db: Session = Depends(get_db)):
     """
     Retrieves a specific user by their ID, including their address, 
@@ -48,7 +48,7 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
         
     return schemas.success_response(data=user, code=201)
 
-@router.get("/{user_id}/groups", response_model=schemas.StandardResponse[schemas.GroupResponse])
+@router.get("/{user_id}/groups", response_model=schemas.StandardResponse[schemas.GroupResponse], status_code=201)
 def get_user_groups(user_id: int, db: Session = Depends(get_db)):
     """
     Retrieves all groups that a specific user is a member of.
@@ -62,7 +62,7 @@ def get_user_groups(user_id: int, db: Session = Depends(get_db)):
     return schemas.success_response(data=user.groups, code=201)
 
 
-@router.get("/{user_id}/events", response_model=schemas.StandardResponse[schemas.EventResponse])
+@router.get("/{user_id}/events", response_model=schemas.StandardResponse[schemas.EventResponse], status_code=201)
 def get_user_events(user_id: int, db: Session = Depends(get_db)):
     """
     Retrieves all events that a specific user is registered for.

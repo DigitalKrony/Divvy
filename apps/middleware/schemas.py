@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import List, Optional, Generic, TypeVar, Any
 from datetime import datetime
 from models import PayMethodEnum
@@ -47,8 +47,7 @@ class UserResponse(UserBase):
     address: Optional["AddressResponse"] = None
     pay_accounts: List["PayAccountResponse"] = []
     
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class AddressBase(BaseModel):
     address_line_1: str
@@ -64,8 +63,7 @@ class AddressResponse(AddressBase):
     id: int
     user_id: int
     
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class PayAccountBase(BaseModel):
     method: PayMethodEnum
@@ -78,8 +76,7 @@ class PayAccountResponse(PayAccountBase):
     id: int
     user_id: int
     
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class GroupBase(BaseModel):
     name: str
@@ -96,8 +93,7 @@ class GroupResponse(GroupBase):
     users: List["UserResponse"] = []
     evens: List["EventResponse"] = []
         
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class EventBase(BaseModel):
     title: str
@@ -115,8 +111,7 @@ class EventCreate(EventBase):
 class EventResponse(EventBase):
     id: int
     
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class ResponseMeta(BaseModel):
     code: int

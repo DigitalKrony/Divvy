@@ -6,7 +6,7 @@ import models, schemas
 
 router = APIRouter()
 
-@router.post("/", response_model=schemas.StandardResponse[schemas.EventResponse])
+@router.post("/", response_model=schemas.StandardResponse[schemas.EventResponse], status_code=201)
 def create_event(event: schemas.EventCreate, db: Session = Depends(get_db)):
     """Creates a new event."""
     db_event = models.Event(**event.model_dump())
@@ -14,9 +14,10 @@ def create_event(event: schemas.EventCreate, db: Session = Depends(get_db)):
     db.add(db_event)
     db.commit()
     db.refresh(db_event)
-    return db_event
 
-@router.get("/{event_id}", response_model=schemas.StandardResponse[schemas.EventResponse])
+    return schemas.success_response(data=db_event, code=201)
+
+@router.get("/{event_id}", response_model=schemas.StandardResponse[schemas.EventResponse], status_code=201)
 def get_event(event_id: int, db: Session = Depends(get_db)):
     """Retrieves a specific event by its ID."""
     
@@ -29,7 +30,7 @@ def get_event(event_id: int, db: Session = Depends(get_db)):
         
     return schemas.success_response(data=event, code=201)
 
-@router.post("/{event_id}/users/{user_id}", response_model=schemas.StandardResponse[schemas.EventResponse])
+@router.post("/{event_id}/users/{user_id}", response_model=schemas.StandardResponse[schemas.EventResponse], status_code=201)
 def add_user_to_event(event_id: int, user_id: int, db: Session = Depends(get_db)):
     """Registers a user for an event."""
     event = db.query(models.Event).filter(models.Event.id == event_id).first()
@@ -47,7 +48,7 @@ def add_user_to_event(event_id: int, user_id: int, db: Session = Depends(get_db)
     
     return schemas.success_response(data=event, code=201)
 
-@router.get("/{event_id}/users", response_model=schemas.StandardResponse[schemas.UserResponse])
+@router.get("/{event_id}/users", response_model=schemas.StandardResponse[schemas.UserResponse], status_code=201)
 def get_event_users(event_id: int, db: Session = Depends(get_db)):
     """Retrieves all individual users registered for a specific event."""
     event = db.query(models.Event).filter(models.Event.id == event_id).first()
@@ -57,7 +58,7 @@ def get_event_users(event_id: int, db: Session = Depends(get_db)):
         
     return schemas.success_response(data=event.users, code=201)
 
-@router.post("/{event_id}/groups/{group_id}", response_model=schemas.StandardResponse[schemas.EventResponse])
+@router.post("/{event_id}/groups/{group_id}", response_model=schemas.StandardResponse[schemas.EventResponse], status_code=201)
 def add_group_to_event(event_id: int, group_id: int, db: Session = Depends(get_db)):
     """Attaches an entire group to an event."""
     event = db.query(models.Event).filter(models.Event.id == event_id).first()
@@ -75,7 +76,7 @@ def add_group_to_event(event_id: int, group_id: int, db: Session = Depends(get_d
 
     return schemas.success_response(data=event, code=201)
 
-@router.get("/{event_id}/groups", response_model=schemas.StandardResponse[schemas.GroupResponse])
+@router.get("/{event_id}/groups", response_model=schemas.StandardResponse[schemas.GroupResponse], status_code=201)
 def get_event_groups(event_id: int, db: Session = Depends(get_db)):
     """Retrieves all groups registered for a specific event."""
     event = db.query(models.Event).filter(models.Event.id == event_id).first()

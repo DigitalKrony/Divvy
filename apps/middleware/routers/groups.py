@@ -7,7 +7,7 @@ import models, schemas
 
 router = APIRouter()
 
-@router.post("/", response_model=schemas.StandardResponse[schemas.GroupResponse])
+@router.post("/", response_model=schemas.StandardResponse[schemas.GroupResponse], status_code=201)
 def create_group(group: schemas.GroupCreate, db: Session = Depends(get_db)):
     """
     Creates a new group in the database.
@@ -21,7 +21,7 @@ def create_group(group: schemas.GroupCreate, db: Session = Depends(get_db)):
     
     return schemas.success_response(data=db_group, code=201)
 
-@router.post("/{group_id}/members/{user_id}", response_model=schemas.StandardResponse[schemas.GroupResponse])
+@router.post("/{group_id}/members/{user_id}", response_model=schemas.StandardResponse[schemas.GroupResponse], status_code=201)
 def add_user_to_group(group_id: int, user_id: int, db: Session = Depends(get_db)):
     """
     Links an existing user to an existing group.
@@ -45,7 +45,7 @@ def add_user_to_group(group_id: int, user_id: int, db: Session = Depends(get_db)
     
     return schemas.success_response(data=group, code=201)
 
-@router.get("/{group_id}/members", response_model=schemas.StandardResponse[schemas.UserResponse])
+@router.get("/{group_id}/members", response_model=schemas.StandardResponse[schemas.UserResponse], status_code=201)
 def get_group_members(group_id: int, db: Session = Depends(get_db)):
     """
     Retrieves all users that are members of a specific group.
@@ -58,7 +58,7 @@ def get_group_members(group_id: int, db: Session = Depends(get_db)):
         
     return schemas.success_response(data=group.members, code=201)
 
-@router.get("/{group_id}/events", response_model=schemas.StandardResponse[schemas.EventResponse])
+@router.get("/{group_id}/events", response_model=schemas.StandardResponse[schemas.EventResponse], status_code=201)
 def get_group_events(group_id: int, db: Session = Depends(get_db)):
     """
     Retrieves all events that are associated with a specific group.
