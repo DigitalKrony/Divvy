@@ -1,0 +1,8 @@
+{
+    "includeDefaults": false,
+    "extends": [
+        "./.tmp/file.a.json",
+        "./.tmp/file.b.json"
+    ],
+    "destination": "./../../apps/middleware/.mock/db.json"
+}

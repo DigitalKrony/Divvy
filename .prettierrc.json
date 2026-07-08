@@ -1,0 +1,7 @@
+{
+  "braceStyle": "expand",
+  "endOfLine": "auto",
+  "printWidth": 110,
+  "singleQuote": true,
+  "trailingComma": "es5"
+}

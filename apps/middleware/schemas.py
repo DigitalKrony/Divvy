@@ -43,6 +43,7 @@ class UserCreate(UserBase):
 
 class UserResponse(UserBase):
     id: int
+    uuid: str
     
     address: Optional["AddressResponse"] = None
     pay_accounts: List["PayAccountResponse"] = []
@@ -90,6 +91,8 @@ class GroupCreate(GroupBase):
 
 class GroupResponse(GroupBase):
     id: int
+    uuid: str
+
     users: List["UserResponse"] = []
     evens: List["EventResponse"] = []
         
@@ -110,6 +113,7 @@ class EventCreate(EventBase):
 
 class EventResponse(EventBase):
     id: int
+    uuid: str
     
     model_config = ConfigDict(from_attributes=True)
 

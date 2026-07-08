@@ -1,0 +1,50 @@
+{
+  "name": "@df/mocker",
+  "version": "0.1.0",
+  "description": "A thing",
+  "main": "./lib",
+  "author": "Adam Sivins<adam.sivins@gmail.com>",
+  "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    "build": "tsc",
+    "build:db": "node ./lib/builder",
+    "start:prod": "npm run build && npm run start:api --env=PROD",
+    "start:dev": "tsc --watch",
+    "start:api": "npm run build:db && nodemon lib/server/bin/www"
+  },
+  "dependencies": {
+    "@df/utilities": "*",
+    "@faker-js/faker": "^9.6.0",
+    "chalk": "^5.4.1",
+    "cookie-parser": "^1.4.7",
+    "debug": "^4.4.0",
+    "express": "^4.21.2",
+    "glob": "^11.0.1",
+    "js-beautify": "^1.15.4",
+    "js-yaml": "^4.1.0",
+    "json-server": "^1.0.0-beta.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.9",
+    "pureimage": "^0.4.18",
+    "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.8",
+    "@types/debug": "^4.1.12",
+    "@types/express": "^5.0.0",
+    "@types/js-beautify": "^1",
+    "@types/js-yaml": "^4",
+    "@types/json-server": "^0.14.7",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.20.1",
+    "@typescript-eslint/parser": "^8.27.0",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-notice": "^1.0.0",
+    "eslint-plugin-prettier": "^5.2.6",
+    "prettier": "^3.5.3",
+    "prettier-eslint": "^16.3.0"
+  }
+}

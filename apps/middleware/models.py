@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Enum, UniqueConstrai
 from sqlalchemy.orm import relationship
 from database import Base
 import enum
+import uuid
 
 user_group_association = Table(
     "user_group_link",
@@ -33,6 +34,8 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
+    uuid = Column(String(36), default=lambda: str(uuid.uuid4()), unique=True, index=True, nullable=False)
+
     first_name = Column(String, index=True)
     last_name = Column(String, index=True)
     display_name = Column(String, index=True, unique=True)
@@ -42,7 +45,6 @@ class User(Base):
     address = relationship("Address", back_populates="owner", uselist=False, cascade="all, delete-orphan")
     
     pay_accounts = relationship("PayAccount", back_populates="owner", cascade="all, delete-orphan")
-
     events = relationship("Event", secondary=user_event_association, back_populates="users")
     groups = relationship("Group", secondary=user_group_association, back_populates="users")
 
@@ -79,6 +81,8 @@ class Event(Base):
     __tablename__ = "events"
 
     id = Column(Integer, primary_key=True, index=True)
+    uuid = Column(String(36), default=lambda: str(uuid.uuid4()), unique=True, index=True, nullable=False)
+    
     title = Column(String, index=True)
     description = Column(String, nullable=True)
     location = Column(String, nullable=True)
@@ -93,6 +97,8 @@ class Group(Base):
     __tablename__ = "groups"
 
     id = Column(Integer, primary_key=True, index=True)
+    uuid = Column(String(36), default=lambda: str(uuid.uuid4()), unique=True, index=True, nullable=False)
+
     name = Column(String, index=True)
     description = Column(String, nullable=True)
     
