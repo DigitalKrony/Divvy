@@ -1,8 +1,7 @@
 {
     "includeDefaults": false,
     "extends": [
-        "./.tmp/file.a.json",
-        "./.tmp/file.b.json"
+        "./../../apps/middleware/.mock/mock_schema.json"
     ],
     "destination": "./../../apps/middleware/.mock/db.json"
 }

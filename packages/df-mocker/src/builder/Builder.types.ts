@@ -6,6 +6,7 @@ export type RandomProps =
   | {
     type: 'connection';
     object: string;
+    returns?: string; 
     key?: string;
   }
   | {
