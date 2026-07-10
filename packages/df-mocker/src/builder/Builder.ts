@@ -129,7 +129,6 @@ const processArray = (args: {
   const getUnique = (_v: any, _i: number) => {
     let _u = fakeValue({ value: _v, iteration: _i });
 
-    console.log(_u);
     if (secondRun) return _u;
 
     if (uniqueValues.has(_u)) {
@@ -144,7 +143,6 @@ const processArray = (args: {
   if (secondRun) {
     const { item } = args;
     for (const i in item) {
-      console.log(i);
       fakeArray.push(fakeValue({ value: item[i], iteration: parseInt(i) }));
     }
   } else {

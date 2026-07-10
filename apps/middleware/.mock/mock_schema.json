@@ -17,7 +17,13 @@
         "id": 0,
         "user_id": 0
       },
-      "pay_accounts": { "array": { "value": "$random(type: hex-key, lengths: [8, 4, 4, 4, 12])", "count": 0.3, "unique": true }}
+      "pay_accounts": {
+        "array": {
+          "value": "$random(type: hex-key, lengths: [8, 4, 4, 4, 12])",
+          "count": 0.3,
+          "unique": true
+        }
+      }
     },
     "count": 45
   },
@@ -29,8 +35,23 @@
       "description": "{{lorem.paragraph}}",
       "created_at": "{{date.past}}",
       "updated_at": "{{date.recent}}",
-      "users": { "array": { "value": "$random(type: connection, object: users, key: uuid)", "count": 1.6, "unique": false }},
-      "events": { "array": { "value": "$random(type: connection, object: events, key: uuid)", "count": 1.3, "unique": false }}
+      "group_image": "{{image.avatarGitHub}}",
+      "group_header_image": "{{image.urlPicsumPhotos({width: 800, blur: 4, grayscale: true })}}",
+      "location": "{{location.streetAddress({useFullAddress: true})}}",
+      "users": {
+        "array": {
+          "value": "$random(type: connection, object: users, key: uuid)",
+          "count": 1.6,
+          "unique": false
+        }
+      },
+      "events": {
+        "array": {
+          "value": "$random(type: connection, object: events, key: uuid)",
+          "count": 1.3,
+          "unique": false
+        }
+      }
     },
     "count": 15
   },
@@ -43,8 +64,20 @@
       "location": "{{location.streetAddress({useFullAddress: true})}}",
       "start_date": "{{date.future}}",
       "end_date": "{{date.future}}",
-      "users": { "array": { "value": "$random(type: connection, object: users, key: uuid)", "count": 1.10, "unique": false }},
-      "groups": { "array": { "value": "$random(type: connection, object: groups, key: uuid)", "count": 1.3, "unique": false }}
+      "users": {
+        "array": {
+          "value": "$random(type: connection, object: users, key: uuid)",
+          "count": 1.10,
+          "unique": false
+        }
+      },
+      "groups": {
+        "array": {
+          "value": "$random(type: connection, object: groups, key: uuid)",
+          "count": 1.3,
+          "unique": false
+        }
+      }
     },
     "count": 20
   }

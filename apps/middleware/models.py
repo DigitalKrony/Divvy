@@ -99,6 +99,9 @@ class Group(Base):
     id = Column(Integer, primary_key=True, index=True)
     uuid = Column(String(36), default=lambda: str(uuid.uuid4()), unique=True, index=True, nullable=False)
 
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
+    
     name = Column(String, index=True)
     description = Column(String, nullable=True)
     
