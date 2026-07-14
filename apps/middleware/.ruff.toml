@@ -1,0 +1,9 @@
+line-length = 88
+target-version = "py312"
+indent-width = 2
+
+[format]
+quote-style = "single"
+indent-style = "space"
+skip-magic-trailing-comma = false
+docstring-code-format = true

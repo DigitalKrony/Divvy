@@ -77,8 +77,35 @@
           "count": 1.3,
           "unique": false
         }
+      },
+      "expenses": {
+        "array": {
+          "value": "$random(type: connection, object: expenses, key: uuid)",
+          "count": 10.20,
+          "unique": false
+        }
       }
     },
     "count": 20
+  },
+  "expenses": {
+    "schema": {
+      "id": "$i",
+      "uuid": "$random( type: hex-key, lengths: [8, 4, 4, 4, 12])",
+      "title": "{{commerce.productName}}",
+      "description": "{{lorem.lines}}",
+      "amount": "{{number.float({ min: 35, max: 875 })}}",
+      "created_at": "{{date.past}}",
+      "owner_id": "$random(type connection, object: users, key: uuid)",
+      "event_id": "$random(type connection, object: events, key: uuid)",
+      "participants": {
+        "array": {
+          "value": "$random(type: connection, object: users, key: uuid)",
+          "count": 3.10,
+          "unique": false
+        }
+      }
+    },
+    "count": 500
   }
 }

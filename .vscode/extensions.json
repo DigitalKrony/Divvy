@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "ms-azuretools.vscode-docker",
+    "streetsidesoftware.code-spell-checker",
+    "dbaeumer.vscode-eslint",
+    "oderwat.indent-rainbow",
+    "davidanson.vscode-markdownlint",
+    "christian-kohler.path-intellisense",
+    "esbenp.prettier-vscode",
+    "rvest.vs-code-prettier-eslint",
+    "hb432.prettier-eslint-typescript",
+    "ms-python.python",
+    "ms-vscode-remote.remote-wsl"
+  ]
+}
