@@ -30,7 +30,7 @@ jobs:
       - name: Build and push the API image
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./apps/middleware
+          file: ./apps/middleware/Dockerfile
           push: true
-          tags: ghcr.io/digitalkrony/divi-api:latest
+          tags: ghcr.io/DigitalKrony/divi-api:latest
