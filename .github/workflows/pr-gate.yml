@@ -27,6 +27,15 @@ jobs:
       - name: Spin up Docker Compose environment
         run: docker compose up -d
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'package.json'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
       - name: Wait for Database to initialize
         run: sleep 10
 

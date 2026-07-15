@@ -4,6 +4,9 @@
   "description": "The Divvy app from MyFriends",
   "license": "MIT",
   "author": "Adam Sivins <adam.sivins@gmail.com>",
+  "engines": {
+    "node": ">=25.0.0"
+  },
   "scripts": {},
   "workspaces": [
     "apps/*",
