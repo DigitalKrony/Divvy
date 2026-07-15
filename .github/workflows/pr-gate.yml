@@ -14,15 +14,37 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v4
 
+      - name: Create .env file
+        run: |
+          echo "PG_DB=${{ secrets.PG_DB }}" >> .env
+          echo "PG_DB_USER=${{ secrets.PG_DB_USER }}" >> .env
+          echo "PG_DB_PASS=${{ secrets.PG_DB_PASS }}" >> .env
+          echo "PG_DB_HOST=${{ secrets.PG_DB_HOST }}" >> .env
+          echo "PG_DB_PORT=${{ secrets.PG_DB_PORT }}" >> .env
+          echo "ENVIRONMENT=${{ secrets.ENVIRONMENT }}" >> .env
+          echo "WATCHTOWER_WEBHOOK=${{ secrets.WATCHTOWER_WEBHOOK }}" >> .env
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '26'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
       - name: Spin up Docker Compose environment
-        run: docker-compose up -d
+        run: docker compose up -d
 
       - name: Wait for Database to initialize
         run: sleep 10
 
+      - name: Run Database Migrations
+        run: docker compose exec -T api alembic upgrade head
+
       - name: Run Unit Tests
-        run: docker-compose exec -T api pytest
+        run: docker compose exec -T api pytest
 
       - name: Shut down environment
         if: always()
-        run: docker-compose down -v
+        run: docker compose down -v
