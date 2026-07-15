@@ -6,6 +6,6 @@ python-dotenv
 authlib
 python-jose
 pytest
-httpx
+httpx2
 alembic
 python-dateutil
