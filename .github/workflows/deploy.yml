@@ -27,6 +27,15 @@ jobs:
           echo "ENVIRONMENT=${{ secrets.ENVIRONMENT }}" >> .env
           echo "WATCHTOWER_WEBHOOK=${{ secrets.WATCHTOWER_WEBHOOK }}" >> .env
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'package.json'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
       - name: Spin up Docker Compose environment
         run: docker compose up -d
 
