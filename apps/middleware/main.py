@@ -1,31 +1,42 @@
-from fastapi import FastAPI, Request, Depends, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy import text
 from sqlalchemy.orm import Session
+
 from database import get_db
-from routers import users, groups, events, expenses
-from fastapi.encoders import jsonable_encoder
-import schemas
+from modules.users import router as users_router
+from modules.events import router as events_router
+from modules.groups import router as groups_router
+from modules.expenses import router as expenses_router
+
+from modules.users import schemas as user_schemas
+from modules.groups import schemas as group_schemas
+from modules.events import schemas as event_schemas
+from modules.expenses import schemas as expense_schemas
+
+shared_namespace = {
+  'UserBase': user_schemas.UserBase,
+  'GroupBase': group_schemas.GroupBase,
+  'EventBase': event_schemas.EventBase,
+  'ExpenseBase': expense_schemas.ExpenseBase,
+}
+
+user_schemas.UserBase.model_rebuild(_types_namespace=shared_namespace)
+user_schemas.UserCreate.model_rebuild(_types_namespace=shared_namespace)
+user_schemas.UserResponse.model_rebuild(_types_namespace=shared_namespace)
+
+group_schemas.GroupBase.model_rebuild(_types_namespace=shared_namespace)
+group_schemas.GroupCreate.model_rebuild(_types_namespace=shared_namespace)
+group_schemas.GroupResponse.model_rebuild(_types_namespace=shared_namespace)
+
+event_schemas.EventBase.model_rebuild(_types_namespace=shared_namespace)
+event_schemas.EventCreate.model_rebuild(_types_namespace=shared_namespace)
+event_schemas.EventResponse.model_rebuild(_types_namespace=shared_namespace)
+
+expense_schemas.ExpenseBase.model_rebuild(_types_namespace=shared_namespace)
+expense_schemas.ExpenseCreate.model_rebuild(_types_namespace=shared_namespace)
+expense_schemas.ExpenseResponse.model_rebuild(_types_namespace=shared_namespace)
 
 app = FastAPI(title='Divvy App v0.0.1')
-
-
-@app.exception_handler(HTTPException)
-async def http_exception_handler(request: Request, exc: HTTPException):
-  """
-  Intercepts standard HTTP exceptions and wraps them in a common schema.
-  """
-
-  encoded_data = jsonable_encoder(
-    schemas.error_response(detail=exc.detail, code=exc.status_code)
-  )
-
-  return JSONResponse(status_code=exc.status_code, content=encoded_data)
-
-
-@app.get('/')
-def root():
-  return {'message': 'Welcome to Divvy App v0.0.1'}
 
 
 @app.get('/health', tags=['Health'])
@@ -42,7 +53,7 @@ def health_check(db: Session = Depends(get_db)):
     raise HTTPException(status_code=503, detail='Database connection failed')
 
 
-app.include_router(users.router, prefix='/users', tags=['Users'])
-app.include_router(groups.router, prefix='/groups', tags=['Groups'])
-app.include_router(events.router, prefix='/events', tags=['Events'])
-app.include_router(expenses.router, prefix='/expenses', tags=['Expenses'])
+app.include_router(users_router.router)
+app.include_router(groups_router.router)
+app.include_router(events_router.router)
+app.include_router(expenses_router.router)
