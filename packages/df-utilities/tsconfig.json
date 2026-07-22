@@ -1,21 +1,14 @@
 {
-  "extends": "../../common/config/typescript/tsconfig.json",
+  "baseDir": "./src",
+  "references": [
+    { "path": "./../../.common/config/typescript/tsconfig.node.json" },
+    { "path": "./../../.common/config/typescript/tsconfig.app.json" }
+  ],
   "compilerOptions": {
-    "target":"esnext",
-    "outDir": "lib",
-    "rootDir": "src",
-    "types": ["node"],
-
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "useUnknownInCatchVariables": false,
-
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
-
+    "outDir": "./lib",
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*"]
     }
   },
   "typeRoots": ["node_modules/@types"],

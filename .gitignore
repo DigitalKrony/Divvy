@@ -101,3 +101,6 @@ coverage
 # temp folders
 .tmp
 .temp
+
+# System files
+*Zone.identifier
