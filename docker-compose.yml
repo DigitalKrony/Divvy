@@ -61,20 +61,21 @@ services:
     restart: unless-stopped
     build:
       context: .
-      dockerfile: ./apps/web/Dockerfile.dev
-    working_dir: /app/apps/web
+      dockerfile: ./packages/divi-docs/Dockerfile.dev
+    working_dir: /app
     ports:
-      - '6006:6006'
+      - '5175:5175'
     depends_on:
       - web
     volumes:
       - .:/app
       - /app/node_modules
-      - /app/apps/web/node_modules
+      - /app/packages/divi-docs/node_modules
     environment:
       CHOKIDAR_USEPOLLING: true
       ENVIRONMENT: ${ENVIRONMENT:-Production}
-    command: npm run start:dux
+      CI: 'true'
+    command: npm run start:docs -- --no-open
 
 volumes:
   postgres_data_v1:
